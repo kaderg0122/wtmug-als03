@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d6efd" />
+  <meta name="description" content="Open-Meteo hava durumu PWA" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Hava Durumu" />
+  <title>Hava Durumu</title>
+</head>
+<body>
+
+  <!-- Hareketli hava durumu arka planı (JS ile doldurulur) -->
+  <div id="weatherBg" class="weather-bg" aria-hidden="true"></div>
+
+  <div id="offlineBanner" class="offline-banner" hidden>
+    ⚡ Çevrimdışısın — gösterilen veriler son önbellekten geliyor
+  </div>
+
+  <div class="app">
+
+    <header class="app-header">
+      <h1>Hava Durumu</h1>
+      <button id="themeToggle" class="icon-btn" aria-label="Tema değiştir" title="Açık/Koyu mod">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </header>
+
+    <form id="searchForm" class="search-form" autocomplete="off">
+      <input
+        type="search"
+        id="cityInput"
+        placeholder="Şehir ara (ör. İstanbul)"
+        aria-label="Şehir adı"
+        required
+      />
+      <button type="submit" class="primary-btn" aria-label="Ara">Ara</button>
+    </form>
+
+    <button id="locationBtn" class="location-btn">📍 Konumumu Kullan</button>
+
+    <p id="errorMsg" class="error-msg" hidden></p>
+
+    <div id="loading" class="loading" hidden>
+      <div class="spinner"></div>
+      <p>Yükleniyor…</p>
+    </div>
+
+    <main id="result" hidden>
+      <section class="current-card">
+        <div class="current-top">
+          <div>
+            <h2 id="cityName" class="city-name">—</h2>
+            <p id="lastUpdate" class="last-update">—</p>
+          </div>
+          <div id="currentIcon" class="current-icon">☀️</div>
+        </div>
+
+        <div class="current-temp">
+          <span id="currentTemp">—</span>
+          <span class="unit">°C</span>
+        </div>
+        <p id="currentDesc" class="current-desc">—</p>
+
+        <div class="current-meta">
+          <div class="meta-item">
+            <span class="meta-label">💧 Nem</span>
+            <span id="currentHumidity" class="meta-value">—</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">💨 Rüzgâr</span>
+            <span id="currentWind" class="meta-value">—</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">🌡️ Hissedilen</span>
+            <span id="currentFeels" class="meta-value">—</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="forecast-section">
+        <h3>7 Günlük Tahmin</h3>
+        <ul id="forecastList" class="forecast-list"></ul>
+      </section>
+    </main>
+
+    <p class="footer-note">
+      Veri kaynağı: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>
+    </p>
+
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
